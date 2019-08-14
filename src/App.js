@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header'
+import Main from './components/Main'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const initialTodos = [
+    {
+        id: 1,
+        content: 'Pay the bills'
+    },
+    {
+        id: 2,
+        content: 'Read books'
+    },
+    {
+        id: 3,
+        content: 'Write a blog post'
+    },
+    {
+        id: 4,
+        content: 'Pay the bills'
+    },
+];
 
-export default App;
+const App = () => {
+    const [todos, setTodos] = useState(initialTodos);
+
+    const deleteTodo = (todoId) => {
+        let newTodos = todos.filter(todo => todo.id !== todoId);
+        setTodos(newTodos)
+    };
+
+    const addTodo = (todo) => {
+        let newTodo = {
+            id: todos.length + 1,
+            content: todo
+        };
+        let newTodos = [newTodo, ...todos];
+        setTodos(newTodos)
+    };
+
+    return (
+        <>
+            <Header/>
+            <Main todos={todos} deleteTodo={deleteTodo} addTodo={addTodo}/>
+        </>
+    )
+};
+
+export default App
