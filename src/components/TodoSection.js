@@ -7,16 +7,16 @@ const TDS = styled.div`
 
 const TodoSection = ({todos, deleteTodo}) => {
 
-    if (todos.length === 0) {
+    if (!todos || todos.length === 0) {
         return(
-            <p>No todos</p>
+            <p className={`text-center`}>No todos</p>
         )
     }
 
     return(
         <TDS>
             {todos && todos.map(todo => {
-                return <TodoList todo={todo} deleteTodo={deleteTodo}/>
+                return <TodoList todo={todo} deleteTodo={deleteTodo} key={todo.id}/>
             })}
         </TDS>
     )

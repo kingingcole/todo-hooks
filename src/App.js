@@ -3,43 +3,50 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header'
 import Main from './components/Main'
 
-const initialTodos = [
-    {
-        id: 1,
-        content: 'Pay the bills'
-    },
-    {
-        id: 2,
-        content: 'Read books'
-    },
-    {
-        id: 3,
-        content: 'Write a blog post'
-    },
-    {
-        id: 4,
-        content: 'Pay the bills'
-    },
-];
+// const initialTodos = [
+//     {
+//         id: 1,
+//         content: 'Pay the bills'
+//     },
+//     {
+//         id: 2,
+//         content: 'Read books'
+//     },
+//     {
+//         id: 3,
+//         content: 'Write a blog post'
+//     },
+//     {
+//         id: 4,
+//         content: 'Pay the bills'
+//     },
+// ];
 
 const App = () => {
-    const [todos, setTodos] = useState(initialTodos);
+    const [todos, setTodos] = useState(null);
 
     const deleteTodo = (todoId) => {
         let newTodos = todos.filter(todo => todo.id !== todoId);
-        setTodos(newTodos)
+        setTodos(newTodos);
+        localStorage.setItem('todos', JSON.stringify(newTodos))
     };
 
     const addTodo = (todo) => {
         let newTodo = {
-            id: todos.length + 1,
+            id: Math.random(),
             content: todo
         };
-        let newTodos = [newTodo, ...todos];
-        setTodos(newTodos)
+        let newTodos = todos ?  [newTodo, ...todos] : [newTodo];
+        setTodos(newTodos);
+        localStorage.setItem('todos', JSON.stringify(newTodos))
     };
 
-    useEffect(() => document.title='Noted')
+    useEffect(() => {
+        document.title='Noted';
+        let todos = localStorage.getItem('todos');
+        todos = JSON.parse(todos);
+        setTodos(todos);
+    }, [])
 
     return (
         <>
