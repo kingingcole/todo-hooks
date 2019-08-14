@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header'
 import Main from './components/Main'
@@ -38,6 +38,8 @@ const App = () => {
         let newTodos = [newTodo, ...todos];
         setTodos(newTodos)
     };
+
+    useEffect(() => document.title='Noted')
 
     return (
         <>
