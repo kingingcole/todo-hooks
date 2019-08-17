@@ -19,6 +19,7 @@ const CTButton = styled.button`
     &:active{
         color: white;
         background: red;
+        border-color: red
     }
 `;
 
