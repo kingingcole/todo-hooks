@@ -24,6 +24,12 @@ const CTButton = styled.button`
 
 const TodoSection = ({todos, deleteTodo, clearTodos}) => {
 
+    const handleClearTodos = () => {
+        let confirmClear = window.confirm("Are you sure you want to clear all todos?");
+        if (!confirmClear) return;
+        clearTodos()
+    };
+
     if (!todos || todos.length === 0) {
         return(
             <div  className={`text-center`}>
@@ -38,7 +44,7 @@ const TodoSection = ({todos, deleteTodo, clearTodos}) => {
             {todos && todos.map(todo => {
                 return <TodoList todo={todo} deleteTodo={deleteTodo} key={todo.id}/>
             })}
-            <CTButton onClick={clearTodos}>Clear All Todos</CTButton>
+            <CTButton onClick={handleClearTodos}>Clear All Todos</CTButton>
         </TDS>
     )
 };
