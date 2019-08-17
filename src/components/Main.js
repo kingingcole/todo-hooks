@@ -1,15 +1,14 @@
 import React from 'react';
-import styled from 'styled-components'
 import TodoSection from './TodoSection'
 import AddTodoSection from './AddTodoSection'
 
 
-const Main = ({todos, deleteTodo, addTodo}) => {
+const Main = ({todos, deleteTodo, addTodo, clearTodos}) => {
     return(
-        <div className="container">
+        <div className="container my-4">
             <div className="row mt-5">
                 <div className="col-lg-7 col-sm-12">
-                    <TodoSection todos={todos} deleteTodo={deleteTodo}/>
+                    <TodoSection todos={todos} deleteTodo={deleteTodo} clearTodos={clearTodos}/>
                 </div>
                 <div className="col-lg-5 col-sm-12">
                     <AddTodoSection addTodo={addTodo}/>

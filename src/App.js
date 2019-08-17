@@ -34,11 +34,16 @@ const App = () => {
     const addTodo = (todo) => {
         let newTodo = {
             id: Math.random(),
-            content: todo
+            content: `${todo[0].toUpperCase() + todo.slice(1, todo.length)}`
         };
         let newTodos = todos ?  [newTodo, ...todos] : [newTodo];
         setTodos(newTodos);
         localStorage.setItem('todos', JSON.stringify(newTodos))
+    };
+
+    const clearTodos =() => {
+      localStorage.removeItem('todos');
+      setTodos(null)
     };
 
     useEffect(() => {
@@ -46,12 +51,12 @@ const App = () => {
         let todos = localStorage.getItem('todos');
         todos = JSON.parse(todos);
         setTodos(todos);
-    }, [])
+    }, []);
 
     return (
         <>
             <Header/>
-            <Main todos={todos} deleteTodo={deleteTodo} addTodo={addTodo}/>
+            <Main todos={todos} deleteTodo={deleteTodo} addTodo={addTodo} clearTodos={clearTodos}/>
         </>
     )
 };

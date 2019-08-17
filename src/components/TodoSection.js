@@ -3,13 +3,33 @@ import styled from 'styled-components'
 import TodoList from './TodoList'
 
 const TDS = styled.div` 
-`
+    margin-bottom: 80px
+`;
 
-const TodoSection = ({todos, deleteTodo}) => {
+const CTButton = styled.button`
+    // CTButton is ClearTodoButton
+    background: none;
+    padding: 5px 10px;
+    color: #f1a9a0;
+    float: right;
+    border: 1px solid #f1a9a0;
+    transition: 0.2s all
+    
+    &:hover,
+    &:active{
+        color: white;
+        background: red;
+    }
+`;
+
+const TodoSection = ({todos, deleteTodo, clearTodos}) => {
 
     if (!todos || todos.length === 0) {
         return(
-            <p className={`text-center`}>No todos</p>
+            <div  className={`text-center`}>
+                <h4>No todos</h4>
+                <p>Use the form to add a new todo</p>
+            </div>
         )
     }
 
@@ -18,6 +38,7 @@ const TodoSection = ({todos, deleteTodo}) => {
             {todos && todos.map(todo => {
                 return <TodoList todo={todo} deleteTodo={deleteTodo} key={todo.id}/>
             })}
+            <CTButton onClick={clearTodos}>Clear All Todos</CTButton>
         </TDS>
     )
 };

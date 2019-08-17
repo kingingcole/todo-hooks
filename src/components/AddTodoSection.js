@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components'
 
 const FormSection = styled.div`
@@ -22,21 +22,32 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-    background: #00baba;
+    background: ${props => props.isButtonActive ? '#00baba' : 'gray'};
     padding: 3px 10px;
     color: white;
-    box-shadow: 3px 3px 10px 2px #aaa;
+    box-shadow: ${props => props.isButtonActive ? '3px 3px 10px 2px #aaa' : ''};
     border: none;
     transition: 0.16s all;
     
     &:hover,
-    &:active{box-shadow: 3px 3px 10px 1px #aaa};
+    &:active{box-shadow: ${props => props.isButtonActive ? '3px 3px 10px 1px #aaa' : ''};
     
     &:active{box-shadow: none !important;}
 `
 
 const AddTodoSection = ({addTodo}) => {
     const [todoText, setTodoText] = useState('');
+    const [isButtonActive, setIsButtonActive] = useState(false);
+
+    const btnDisabled = isButtonActive ? false : true;
+
+    useEffect(() => {
+        if(todoText.length) {
+            setIsButtonActive(true)
+        } else{
+            setIsButtonActive(false)
+        }
+    }, [todoText])
 
     const handleChange = (text) => {
         setTodoText(text)
@@ -49,13 +60,14 @@ const AddTodoSection = ({addTodo}) => {
         setTodoText('')
     };
 
+
     return(
         <FormSection onSubmit={handleSubmit}>
            <div className="container">
                <Heading>Add Todos</Heading>
                <form>
                    <Input type='text' placeholder='What have you got planned?' value={todoText} onChange={(e) => handleChange(e.target.value)}/>
-                   <Button type='submit'>Add Todo</Button>
+                   <Button type='submit' disabled={btnDisabled} isButtonActive={isButtonActive}>Add Todo</Button>
                </form>
            </div>
         </FormSection>
