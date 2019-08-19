@@ -45,7 +45,7 @@ const TodoSection = ({todos, deleteTodo, clearTodos}) => {
             {todos && todos.map(todo => {
                 return <TodoList todo={todo} deleteTodo={deleteTodo} key={todo.id}/>
             })}
-            <CTButton onClick={handleClearTodos}>Clear All Todos</CTButton>
+            { (todos.length > 1) && <CTButton onClick={handleClearTodos}>Clear All Todos</CTButton> }
         </TDS>
     )
 };
