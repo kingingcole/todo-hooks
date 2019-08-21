@@ -35,11 +35,17 @@ const Button = styled.button`
     &:active{box-shadow: none !important;}
 `
 
-const AddTodoSection = ({addTodo}) => {
-    const [todoText, setTodoText] = useState('');
+const AddTodoSection = ({addTodo, todoInputText, isEditingTodo, saveEdit}) => {
+
+   const [todoText, setTodoText] = useState('');
+    // todoInputText is passed from App.js down to components
+    // this was implemented when I decided to add feature of editing todos
+    // I needed a global state, as the editTodo function (which takes in the edited todo's text) is passed down to a sibling component
+
     const [isButtonActive, setIsButtonActive] = useState(false);
 
     const btnDisabled = isButtonActive ? false : true;
+    const btnText = !isEditingTodo ? 'Add New Todo' : 'Save Edit'
 
     useEffect(() => {
         if(todoText.length) {
@@ -47,7 +53,11 @@ const AddTodoSection = ({addTodo}) => {
         } else{
             setIsButtonActive(false)
         }
-    }, [todoText])
+    }, [todoText]);
+
+    useEffect(() => {
+        setTodoText(todoInputText)
+    }, [todoInputText]);
 
     const handleChange = (text) => {
         setTodoText(text)
@@ -56,6 +66,11 @@ const AddTodoSection = ({addTodo}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (todoText.length === 0) return;
+        if (isEditingTodo){
+            saveEdit(todoText);
+            setTodoText('');
+            return
+        }
         addTodo(todoText);
         setTodoText('')
     };
@@ -67,7 +82,7 @@ const AddTodoSection = ({addTodo}) => {
                <Heading>Add Todos</Heading>
                <form>
                    <Input type='text' placeholder='What have you got planned?' value={todoText} onChange={(e) => handleChange(e.target.value)}/>
-                   <Button type='submit' disabled={btnDisabled} isButtonActive={isButtonActive}>Add Todo</Button>
+                   <Button type='submit' disabled={btnDisabled} isButtonActive={isButtonActive}>{btnText}</Button>
                </form>
            </div>
         </FormSection>
