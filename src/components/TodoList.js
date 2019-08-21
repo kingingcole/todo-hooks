@@ -40,10 +40,10 @@ const TodoList = ({todo, deleteTodo, editTodo, id}) => {
     return (
         <CardItem>
             <div className="row">
-                <div className="col-10">
+                <div className="col-8">
                     <TodoText>{todo.content}</TodoText>
                 </div>
-                <div className="col-2 text-right">
+                <div className="col-4 text-right">
                     <EditIcon><FontAwesomeIcon icon="pencil-alt" onClick={() => editTodo(id)}/></EditIcon>
                     <TrashIcon><Trash2 onClick={handleClick}/></TrashIcon>
                 </div>
