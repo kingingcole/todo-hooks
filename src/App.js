@@ -68,7 +68,7 @@ const App = () => {
             newTodos[indexOfEditedTodo] = newTodo
         }
         setTodos(newTodos);
-        // localStorage.setItem('todos', newTodos);
+        localStorage.setItem('todos', JSON.stringify(newTodos));
         setIsEditingTodo(false)
     };
 
