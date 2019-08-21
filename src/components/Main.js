@@ -9,7 +9,8 @@ const Main = ({todos,
                   clearTodos,
                   todoInputText,
                   isEditingTodo,
-                  editTodo}) => {
+                  editTodo,
+                  saveEdit}) => {
     return(
         <div className="container my-4">
             <div className="row mt-5">
@@ -17,7 +18,7 @@ const Main = ({todos,
                     <TodoSection todos={todos} deleteTodo={deleteTodo} clearTodos={clearTodos} editTodo={editTodo}/>
                 </div>
                 <div className="col-lg-5 col-sm-12">
-                    <AddTodoSection addTodo={addTodo} todoInputText={todoInputText} isEditingTodo={isEditingTodo}/>
+                    <AddTodoSection addTodo={addTodo} todoInputText={todoInputText} isEditingTodo={isEditingTodo} saveEdit={saveEdit}/>
                 </div>
             </div>
         </div>

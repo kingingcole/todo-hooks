@@ -33,6 +33,7 @@ const App = () => {
     const [todos, setTodos] = useState(null);
     const [todoInputText, setTodoInputText] = useState('');
     const [isEditingTodo, setIsEditingTodo] = useState(false);
+    const [todoBeingEdited, setTodoBeingEdited] = useState(null)
 
     const deleteTodo = (todoId) => {
         let newTodos = todos.filter(todo => todo.id !== todoId);
@@ -41,15 +42,13 @@ const App = () => {
     };
 
     const addTodo = (todo) => {
-        if (!isEditingTodo) {
-            let newTodo = {
-                id: Math.random(),
-                content: `${todo[0].toUpperCase() + todo.slice(1, todo.length)}`
-            };
-            let newTodos = todos ?  [newTodo, ...todos] : [newTodo];
-            setTodos(newTodos);
-            localStorage.setItem('todos', JSON.stringify(newTodos))
-        }
+        let newTodo = {
+            id: Math.random(),
+            content: `${todo[0].toUpperCase() + todo.slice(1, todo.length)}`
+        };
+        let newTodos = todos ?  [newTodo, ...todos] : [newTodo];
+        setTodos(newTodos);
+        localStorage.setItem('todos', JSON.stringify(newTodos))
     };
 
     const clearTodos =() => {
@@ -57,13 +56,27 @@ const App = () => {
       setTodos(null)
     };
 
+    const saveEdit = (newTodoContent) => {
+        let indexOfEditedTodo = todos.indexOf(todoBeingEdited);
+        let newTodos = [...todos];
+        let newTodo = {
+            id: todoBeingEdited.id,
+            content: newTodoContent
+        };
+
+        if(indexOfEditedTodo !== -1) {
+            newTodos[indexOfEditedTodo] = newTodo
+        }
+        setTodos(newTodos);
+        // localStorage.setItem('todos', newTodos);
+        setIsEditingTodo(false)
+    };
+
     const editTodo = (editedTodoId) => {
         setIsEditingTodo(true);
-        if (editedTodoId){
-            const todoToEdit = todos.find(todo => todo.id === editedTodoId);
-            const todoToEditText = todoToEdit.content;
-            setTodoInputText(todoToEdit.content);
-        }
+        const todoToEdit = todos.find(todo => todo.id === editedTodoId);
+        setTodoInputText(todoToEdit.content);
+        setTodoBeingEdited(todoToEdit)
     };
 
     useEffect(() => {
@@ -83,6 +96,7 @@ const App = () => {
                   todoInputText={todoInputText}
                   isEditingTodo={isEditingTodo}
                   editTodo={editTodo}
+                  saveEdit={saveEdit}
             />
         </>
     )

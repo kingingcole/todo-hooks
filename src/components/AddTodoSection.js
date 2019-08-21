@@ -35,7 +35,7 @@ const Button = styled.button`
     &:active{box-shadow: none !important;}
 `
 
-const AddTodoSection = ({addTodo, todoInputText, isEditingTodo}) => {
+const AddTodoSection = ({addTodo, todoInputText, isEditingTodo, saveEdit}) => {
 
    const [todoText, setTodoText] = useState('');
     // todoInputText is passed from App.js down to components
@@ -66,6 +66,11 @@ const AddTodoSection = ({addTodo, todoInputText, isEditingTodo}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (todoText.length === 0) return;
+        if (isEditingTodo){
+            saveEdit(todoText);
+            setTodoText('');
+            return
+        }
         addTodo(todoText);
         setTodoText('')
     };
