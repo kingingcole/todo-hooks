@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Trash2 } from 'react-feather';
+import { Trash2, Square } from 'react-feather';
 
 const CardItem = styled.div`
     background: #eee;
@@ -30,7 +30,7 @@ const TodoList = ({todo, deleteTodo}) => {
         <CardItem>
             <div className="row">
                 <div className="col-10">
-                    <TodoText>{todo.content}</TodoText>
+                    <TodoText><Square/> {todo.content}</TodoText>
                 </div>
                 <div className="col-2 text-right">
                     <TrashIcon><Trash2 onClick={handleClick}/></TrashIcon>
