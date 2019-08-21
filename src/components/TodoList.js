@@ -4,13 +4,17 @@ import { Trash2, Square } from 'react-feather';
 
 const CardItem = styled.div`
     background: #eee;
-   padding: 10px 10px ;
+   padding: 10px 10px;
    margin-bottom: 10px;
    border-radius: 4px
 `;
 
 const TodoText = styled.p`
     font-weight: 500
+    margin-bottom: 0;
+    color: black;
+    &:hover,
+    &:active {color: gray}
 `;
 
 const TrashIcon = styled.span`
