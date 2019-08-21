@@ -43,7 +43,7 @@ const TodoSection = ({todos, deleteTodo, clearTodos}) => {
 
     return(
         <TDS>
-            {todos && todos.map(todo => {
+            {todos.map(todo => {
                 return <TodoList todo={todo} deleteTodo={deleteTodo} key={todo.id}/>
             })}
             { (todos.length > 1) && <CTButton onClick={handleClearTodos}>Clear All Todos</CTButton> }
