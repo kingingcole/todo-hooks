@@ -23,7 +23,7 @@ const CTButton = styled.button`
     }
 `;
 
-const TodoSection = ({todos, deleteTodo, clearTodos}) => {
+const TodoSection = ({todos, deleteTodo, clearTodos, editTodo}) => {
 
     const handleClearTodos = async () => {
         await window.navigator.vibrate(200);
@@ -44,7 +44,7 @@ const TodoSection = ({todos, deleteTodo, clearTodos}) => {
     return(
         <TDS>
             {todos.map(todo => {
-                return <TodoList todo={todo} deleteTodo={deleteTodo} key={todo.id}/>
+                return <TodoList todo={todo} deleteTodo={deleteTodo} key={todo.id} editTodo={editTodo} id={todo.id}/>
             })}
             { (todos.length > 1) && <CTButton onClick={handleClearTodos}>Clear All Todos</CTButton> }
         </TDS>
