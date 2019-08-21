@@ -26,6 +26,7 @@ const CTButton = styled.button`
 const TodoSection = ({todos, deleteTodo, clearTodos}) => {
 
     const handleClearTodos = () => {
+        window.navigator.vibrate([200, 100, 200]);
         let confirmClear = window.confirm("Are you sure you want to clear all todos?");
         if (!confirmClear) return;
         clearTodos()
