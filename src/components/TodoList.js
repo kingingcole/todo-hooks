@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Trash2, Square } from 'react-feather';
+import { Trash2, Square, CheckSquare } from 'react-feather';
 
 const CardItem = styled.div`
     background: #eee;
@@ -25,16 +25,24 @@ const TrashIcon = styled.span`
     &:active {color: #cf000f} 
 `
 
-const TodoList = ({todo, deleteTodo}) => {
+const TodoList = ({todo, deleteTodo, completeTodo}) => {
     const handleClick = () => {
         deleteTodo(todo.id)
     }
-
+    
     return (
+        
         <CardItem>
             <div className="row">
                 <div className="col-10">
-                    <TodoText><Square/> {todo.content}</TodoText>
+                    <TodoText style={{ textDecoration: todo.isChecked ? "line-through" : "" }}>
+                        {todo.isChecked ?
+                        <CheckSquare onClick={() => completeTodo(todo.id)}/> 
+                        :
+                        <Square onClick={() => completeTodo(todo.id)}/> 
+                        }
+                        {todo.content}
+                        </TodoText>
                 </div>
                 <div className="col-2 text-right">
                     <TrashIcon><Trash2 onClick={handleClick}/></TrashIcon>
