@@ -37,9 +37,9 @@ const TodoList = ({todo, deleteTodo, completeTodo}) => {
                 <div className="col-10">
                     <TodoText style={{ textDecoration: todo.isChecked ? "line-through" : "" }}>
                         {todo.isChecked ?
-                        <CheckSquare onClick={() => completeTodo(todo.id)}/> 
+                        <CheckSquare style = {{marginRight: "5%"}} onClick={() => completeTodo(todo.id)}/> 
                         :
-                        <Square onClick={() => completeTodo(todo.id)}/> 
+                        <Square style = {{marginRight: "5%"}} onClick={() => completeTodo(todo.id)}/> 
                         }
                         {todo.content}
                         </TodoText>
