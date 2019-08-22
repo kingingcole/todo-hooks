@@ -8,6 +8,8 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import Header from './components/Header'
 import Main from './components/Main'
 
+import { generateKeyPair } from "crypto";
+
 library.add(faPencilAlt);
 
 // const initialTodos = [
@@ -35,26 +37,39 @@ const App = () => {
     const [isEditingTodo, setIsEditingTodo] = useState(false);
     const [todoBeingEdited, setTodoBeingEdited] = useState(null)
 
-    const deleteTodo = (todoId) => {
-        let newTodos = todos.filter(todo => todo.id !== todoId);
-        setTodos(newTodos);
-        localStorage.setItem('todos', JSON.stringify(newTodos))
-    };
 
-    const addTodo = (todo) => {
-        let newTodo = {
-            id: Math.random(),
-            content: `${todo[0].toUpperCase() + todo.slice(1, todo.length)}`
-        };
-        let newTodos = todos ?  [newTodo, ...todos] : [newTodo];
-        setTodos(newTodos);
-        localStorage.setItem('todos', JSON.stringify(newTodos))
-    };
+  const deleteTodo = todoId => {
+    let newTodos = todos.filter(todo => todo.id !== todoId);
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  };
 
-    const clearTodos =() => {
-      localStorage.removeItem('todos');
-      setTodos(null)
+  const addTodo = todo => {
+    let newTodo = {
+      id: Math.random(),
+      content: `${todo[0].toUpperCase() + todo.slice(1, todo.length)}`,
+      isChecked: false
     };
+    let newTodos = todos ? [...todos, newTodo] : [newTodo];
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  };
+
+  const clearTodos = () => {
+    localStorage.removeItem("todos");
+    setTodos(null);
+  };
+
+  const completeTodo = todoId => {
+    setTodos(todos => {
+      let completedTodo = todos.filter(todo => todo.id == todoId)[0];
+      completedTodo.isChecked = !completedTodo.isChecked;
+      let newTodos = [...todos];
+      localStorage.setItem("todos", JSON.stringify(newTodos));
+      return newTodos;
+    });
+  };
+
 
     const saveEdit = (newTodoContent) => {
         let indexOfEditedTodo = todos.indexOf(todoBeingEdited);
@@ -97,9 +112,11 @@ const App = () => {
                   isEditingTodo={isEditingTodo}
                   editTodo={editTodo}
                   saveEdit={saveEdit}
+                  completeTodo={completeTodo}
             />
         </>
     )
+
 };
 
-export default App
+export default App;
