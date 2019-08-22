@@ -45,7 +45,7 @@ const TodoList = ({todo, deleteTodo, editTodo, id, completeTodo}) => {
         
         <CardItem>
             <div className="row">
-                <div className="col-10">
+                <div className="col-8">
                     <TodoText style={{ textDecoration: todo.isChecked ? "line-through" : "" }}>
                         {todo.isChecked ?
                         <CheckSquare style = {{marginRight: "5%"}} onClick={() => completeTodo(todo.id)}/> 
