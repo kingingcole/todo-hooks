@@ -13,12 +13,12 @@ const Title = styled.h3`
 
 const Header = () => {
     return(
-        <header>
+        <header data-testid="navbar">
             <Nav>
                 <div className="container">
                     <div className="row">
                         <div className="col-3">
-                            <Title>Noted</Title>
+                            <Title data-testid="logo-text">Noted</Title>
                         </div>
                         <div className="col-9">
 

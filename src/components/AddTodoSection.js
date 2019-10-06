@@ -48,7 +48,7 @@ const AddTodoSection = ({addTodo, todoInputText, isEditingTodo, saveEdit}) => {
     const btnText = !isEditingTodo ? 'Add New Todo' : 'Save Edit'
 
     useEffect(() => {
-        if(todoText.length) {
+        if(todoText && todoText.length) {
             setIsButtonActive(true)
         } else{
             setIsButtonActive(false)
@@ -77,12 +77,12 @@ const AddTodoSection = ({addTodo, todoInputText, isEditingTodo, saveEdit}) => {
 
 
     return(
-        <FormSection onSubmit={handleSubmit}>
+        <FormSection>
            <div className="container">
                <Heading>Add Todos</Heading>
-               <form>
+               <form onSubmit={handleSubmit}>
                    <Input type='text' placeholder='What have you got planned?' value={todoText} onChange={(e) => handleChange(e.target.value)}/>
-                   <Button type='submit' disabled={btnDisabled} isButtonActive={isButtonActive}>{btnText}</Button>
+                   <Button data-testid='add-button' type='submit' disabled={btnDisabled} isButtonActive={isButtonActive} >{btnText}</Button>
                </form>
            </div>
         </FormSection>

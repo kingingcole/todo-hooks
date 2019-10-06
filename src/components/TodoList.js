@@ -43,21 +43,23 @@ const TodoList = ({todo, deleteTodo, editTodo, id, completeTodo}) => {
     
     return (
         
-        <CardItem>
+        <CardItem data-testid='todo-list'>
             <div className="row">
                 <div className="col-8">
-                    <TodoText style={{ textDecoration: todo.isChecked ? "line-through" : "" }}>
-                        {todo.isChecked ?
-                        <CheckSquare style = {{marginRight: "5%"}} onClick={() => completeTodo(todo.id)}/> 
-                        :
-                        <Square style = {{marginRight: "5%"}} onClick={() => completeTodo(todo.id)}/> 
-                        }
+                    <TodoText data-testid='todo-content' style={{ textDecoration: todo.isChecked ? "line-through" : "" }}>
+                        <span data-testid="checkbox">
+                            {todo.isChecked ?
+                                <CheckSquare style = {{marginRight: "5%"}} onClick={() => completeTodo(todo.id)}/>
+                                :
+                                <Square style = {{marginRight: "5%"}} onClick={() => completeTodo(todo.id)}/>
+                            }
+                        </span>
                         {todo.content}
                         </TodoText>
                 </div>
                 <div className="col-4 text-right">
                     <EditIcon><FontAwesomeIcon icon="pencil-alt" onClick={() => editTodo(id)}/></EditIcon>
-                    <TrashIcon><Trash2 onClick={handleClick}/></TrashIcon>
+                    <TrashIcon onClick={handleClick} data-testid='delete-todo'><Trash2/></TrashIcon>
                 </div>
             </div>
         </CardItem>

@@ -3,7 +3,8 @@ import TodoSection from './TodoSection'
 import AddTodoSection from './AddTodoSection'
 
 
-const Main = ({todos,
+const Main = ({
+                  todos,
                   deleteTodo,
                   addTodo,
                   clearTodos,
@@ -11,15 +12,18 @@ const Main = ({todos,
                   isEditingTodo,
                   editTodo,
                   completeTodo,
-                  saveEdit}) => {
-    return(
+                  saveEdit
+              }) => {
+    return (
         <div className="container my-4">
             <div className="row mt-5">
                 <div className="col-lg-7 col-sm-12">
-                    <TodoSection todos={todos} deleteTodo={deleteTodo} clearTodos={clearTodos} editTodo={editTodo} completeTodo={completeTodo}/>
+                    <TodoSection todos={todos} deleteTodo={deleteTodo} clearTodos={clearTodos} editTodo={editTodo}
+                                 completeTodo={completeTodo}/>
                 </div>
                 <div className="col-lg-5 col-sm-12">
-                    <AddTodoSection addTodo={addTodo} todoInputText={todoInputText} isEditingTodo={isEditingTodo} saveEdit={saveEdit}/>
+                    <AddTodoSection addTodo={addTodo} todoInputText={todoInputText} isEditingTodo={isEditingTodo}
+                                    saveEdit={saveEdit}/>
                 </div>
             </div>
         </div>

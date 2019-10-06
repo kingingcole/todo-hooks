@@ -35,7 +35,7 @@ const TodoSection = ({todos, deleteTodo, clearTodos, completeTodo, editTodo}) =>
 
     if (!todos || todos.length === 0) {
         return(
-            <div  className={`text-center`}>
+            <div  className={`text-center`} data-testid='empty-todo-container'>
                 <h4>No todos</h4>
                 <p>Use the form to add a new todo</p>
             </div>
@@ -43,7 +43,7 @@ const TodoSection = ({todos, deleteTodo, clearTodos, completeTodo, editTodo}) =>
     }
 
     return(
-        <TDS>
+        <TDS data-testid='todo-section'>
             {todos.map(todo => {
                 return <TodoList todo={todo} deleteTodo={deleteTodo} key={todo.id} editTodo={editTodo} id={todo.id} completeTodo={completeTodo}/>
             })}
