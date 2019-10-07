@@ -1,6 +1,8 @@
 import React from 'react'
-import {render, fireEvent, waitForElement} from '@testing-library/react'
+import {render, fireEvent, waitForElement, cleanup} from '@testing-library/react'
 import Main from './Main'
+
+afterEach(cleanup)
 
 describe('tests for main', () => {
     const addTodo = jest.fn()
@@ -28,7 +30,7 @@ describe('tests for main', () => {
     })
 
     test('it adds todos', async () => {
-        const {container, getByTestId} = render(<Main addTodo={addTodo}/>)
+        const {container, getByTestId, getByText} = render(<Main addTodo={addTodo}/>)
 
         const newTodo = 'New todo to add'
 
@@ -37,12 +39,28 @@ describe('tests for main', () => {
         const submitBtn = getByTestId('add-button')
 
         inputField.value = newTodo
+        fireEvent.change(inputField)
         fireEvent.submit(form)
-        expect(addTodo).toHaveBeenCalledTimes(1)
 
         const newTodoList = await waitForElement(() => {
-            getByTestId('todo-list')
+            getByText(newTodo)
         })
+
+        expect(addTodo).toHaveBeenCalledTimes(1)
+        expect(addTodo).toHaveBeenCalledWith(newTodo)
         expect(newTodoList).toBeInTheDocument()
+    })
+
+    test('it deletes todo', async () => {
+        let todos = [
+            {id:1, content: 'testing q'}
+        ]
+        const deleteTodo = jest.fn()
+        const {container, getByTestId} = render(<Main todos={todos} deleteTodo={deleteTodo}/>)
+        const deleteBtn = getByTestId('delete-todo')
+        fireEvent.click(deleteBtn)
+        expect(deleteTodo).toHaveBeenCalledTimes(1)
+        expect(deleteTodo).toHaveBeenCalledWith(todos[0].id)
+        expect(await waitForElement(() => getByTestId('empty-todo-container'))).toBeInTheDocument()
     })
 })

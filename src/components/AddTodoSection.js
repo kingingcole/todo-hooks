@@ -65,7 +65,6 @@ const AddTodoSection = ({addTodo, todoInputText, isEditingTodo, saveEdit}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (todoText.length === 0) return;
         if (isEditingTodo){
             saveEdit(todoText);
             setTodoText('');

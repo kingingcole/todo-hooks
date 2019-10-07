@@ -45,8 +45,10 @@ const App = () => {
   };
 
   const addTodo = todo => {
+    let rand1 = Math.random()
+    let rand2 = Math.random()
     let newTodo = {
-      id: Math.random(),
+      id: rand1 + rand2,
       content: `${todo[0].toUpperCase() + todo.slice(1, todo.length)}`,
       isChecked: false
     };

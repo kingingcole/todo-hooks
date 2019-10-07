@@ -1,6 +1,8 @@
 import React from 'react'
-import { render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, cleanup} from '@testing-library/react'
 import TodoSection from './TodoSection'
+
+afterEach(cleanup)
 
 
 test('it displays no todos with empty todos list', () => {

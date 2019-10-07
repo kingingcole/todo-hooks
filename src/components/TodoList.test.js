@@ -1,6 +1,9 @@
 import React from 'react'
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, cleanup} from '@testing-library/react'
 import TodoList from './TodoList'
+
+afterEach(cleanup)
+
 
 describe('todo lists test', () => {
     let todo = {id: 1, content:'test todo'}
